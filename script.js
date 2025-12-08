@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section[id]');
     
     function setActiveNav() {
-        const scrollY = window.pageYOffset;
+        const scrollY = window.scrollY;
 
         sections.forEach(section => {
             const sectionHeight = section.offsetHeight;
@@ -112,10 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (footerText && footerText.textContent.includes('2025')) {
         footerText.textContent = footerText.textContent.replace('2025', currentYear);
     }
-});
 
-// Handle external links (open in new tab)
-document.addEventListener('DOMContentLoaded', function() {
+    // Handle external links (open in new tab)
     const externalLinks = document.querySelectorAll('a[href^="http"]');
     externalLinks.forEach(link => {
         if (!link.hasAttribute('target')) {
