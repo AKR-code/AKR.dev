@@ -52,15 +52,12 @@ function loadNavigation() {
                 <img src="assets/images/PHOTO.jpeg" alt="Allam Koushik Reddy">
             </div>
             <div class="footer-address">
-                <div class="footer-title">Contact me</div>
+                <div class="footer-title">Koushik</div>
                 <div>
-                    Allam Koushik Reddy,<br>
-                    I-Mtech CSE, SEM-2,<br>
                     School of Computers and Information Sciences,<br>
                     University of Hyderabad,<br>
                     C R Rao road, Gachibowli,<br>
-                    Hyderabad, Telangana,<br>
-                    India.<br>
+                    Hyderabad, India,<br>
                     25mcce10@uohyd.ac.in,<br>
                     koushik.r.allam@gmail.com.
                 </div>
