@@ -54,10 +54,6 @@ function loadNavigation() {
             <div class="footer-address">
                 <div class="footer-title">Koushik</div>
                 <div>
-                    School of Computers and Information Sciences,<br>
-                    University of Hyderabad,<br>
-                    C R Rao road, Gachibowli,<br>
-                    Hyderabad, India,<br>
                     25mcce10@uohyd.ac.in,<br>
                     koushik.r.allam@gmail.com.
                 </div>
