@@ -7,13 +7,14 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 
-<body class="fade">
+<body class="fade page-index">
     <!-- Hero Section: Full viewport intro with video background -->
     <section id="hero">
         <video id="hero-vid" autoplay muted loop playsinline>
-            <source src="assets/videos/hero-home.mov" type="video/mp4">
+            <source id="video-source" src="assets/videos/hero-light-theme-vid.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div id="hero-content">
@@ -24,29 +25,24 @@
     </section>
 
     <!-- Navigation Ribbon: Fixed at top, floats over content -->
-    <div id="ribbon">
-        <div class="button">
-            <a href="index.html">Home</a>
-        </div>
-        <div id="tabs">
-            <div class="button">
-                <a href="projects.html">Projects</a>
-            </div>
-            <div class="button">
-                <a href="library.html">Library</a>
-            </div>
-            <div class="button">
-                <a href="events.html">Events</a>
-            </div>
-            <div class="button">
-                <a href="assets/pdfs/resume.pdf" tabindex="_blank">Resume</a>
-            </div>
-        </div>
-    </div>
+    <nav id="ribbon">
+        <a href="index.html" class="button">Home</a>
+        <div class="spacer"></div>
+        <a href="projects.html" class="button">Projects</a>
+        <a href="library.html" class="button">Library</a>
+        <a href="events.html" class="button">Events</a>
+        <a href="assets/pdfs/cv.pdf" class="button" target="_blank">CV</a>
+    </nav>
 
     <!-- Main Content: User will see this when they scroll down -->
     <main>
-        <p>Your content goes here...</p>
+        <section class="page-section">
+            <h2 class="page-heading">Welcome</h2>
+            <p class="page-copy">Add your homepage content here.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident voluptatem fugiat saepe, nam dignissimos rerum quo amet illo voluptate, asperiores modi culpa, atque quam. Fuga cupiditate neque molestiae hic quaerat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nihil molestias aspernatur eveniet repellendus soluta aut dignissimos. Laboriosam est, perferendis incidunt voluptas cum quae nam impedit rem soluta eum quibusdam! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor impedit, iure voluptas, architecto sequi natus fuga quibusdam omnis nulla consequatur a adipisci voluptate corrupti pariatur porro eum possimus quo tempora.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi corrupti quia illum placeat porro. A eius quam aliquam sequi odio consequatur quaerat quae consequuntur. Commodi doloribus culpa quo assumenda quis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda animi nobis nemo tenetur praesentium nam a voluptas distinctio. Voluptates recusandae sapiente temporibus sed beatae iusto unde necessitatibus enim fugit! Iusto.</p>
+            
+        </section>
     </main>
 
     <script src="assets/js/page-trans.js"></script>

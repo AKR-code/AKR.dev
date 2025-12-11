@@ -7,44 +7,33 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/library.css">
 </head>
 
-<body class="fade">
+<body class="fade page-library">
     <!-- Hero Section: Full viewport intro with video background -->
     <section id="hero">
-        <div id="hero-content">
-            <!-- Add your cool text here -->
-            <div id="main-title">LIBRARY</div>
-            <div id="tagline">Intuitive way of learning<br>Multivariable Calculus</div>
+        <div class="hero-img hero-library">
+            <div id="hero-content">
+                <!-- Add your cool text here -->
+                <div id="main-title">LIBRARY</div>
+                <div id="tagline">Intuitive way of learning<br>Multivariable Calculus</div>
+            </div>
         </div>
     </section>
 
-    <!-- Navigation Ribbon: Fixed at top, floats over content -->
-    <div id="ribbon">
-        <div class="button">
-            <a href="index.html">Home</a>
-        </div>
-        <div id="tabs">
-            <div class="button">
-                <a href="projects.html">Projects</a>
-            </div>
-            <div class="button">
-                <a href="library.html">Library</a>
-            </div>
-            <div class="button">
-                <a href="events.html">Events</a>
-            </div>
-            <div class="button">
-                <a href="assets/pdfs/resume.pdf" tabindex="_blank">Resume</a>
-            </div>
-        </div>
-    </div>
+    <!-- Navigation Ribbon: Loaded dynamically -->
+    <div id="nav-placeholder"></div>
 
     <!-- Main Content: User will see this when they scroll down -->
     <main>
-        <p>Your content goes here...</p>
+        <section class="page-section">
+            <h2 class="page-heading">Library</h2>
+            <p class="page-copy">Add learning resources here.</p>
+        </section>
     </main>
 
     <script src="assets/js/page-trans.js"></script>
 </body>
+
 </html>

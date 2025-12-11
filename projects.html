@@ -7,13 +7,13 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
 </head>
 
-<body class="fade">
+<body class="fade page-projects">
     <!-- Hero Section: Full viewport intro with video background -->
     <section id="hero">
-        <div id="hero-img"
-        style="background-image: url('assets/images/hero-project.jpeg');">
+        <div class="hero-img hero-projects">
             <div id="hero-content">
                 <!-- Add your cool text here -->
                 <div id="main-title">PROJECTS</div>
@@ -22,33 +22,18 @@
         </div>
     </section>
 
-    <!-- Navigation Ribbon: Fixed at top, floats over content -->
-    <div id="ribbon">
-        <div class="button">
-            <a href="index.html">Home</a>
-        </div>
-        <div id="tabs">
-            <div class="button">
-                <a href="projects.html">Projects</a>
-            </div>
-            <div class="button">
-                <a href="library.html">Library</a>
-            </div>
-            <div class="button">
-                <a href="events.html">Events</a>
-            </div>
-            <div class="button">
-                <a href="assets/pdfs/resume.pdf" tabindex="_blank">Resume</a>
-            </div>
-        </div>
-    </div>
+    <!-- Navigation Ribbon: Loaded dynamically -->
+    <div id="nav-placeholder"></div>
 
     <!-- Main Content: User will see this when they scroll down -->
     <main>
-
-        <p>Your content goes here...</p>
+        <section class="page-section">
+            <h2 class="page-heading">Projects</h2>
+            <p class="page-copy">Add project highlights here.</p>
+        </section>
     </main>
 
     <script src="assets/js/page-trans.js"></script>
 </body>
+
 </html>

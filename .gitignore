@@ -1,0 +1,40 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux system files
+.cache
+
+# Node projects (if you ever add small JS tools later)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+*.log
+
+# Build and output directories (if you add build tools in future)
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# VS Code settings (optional)
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Misc
+*.env
+
