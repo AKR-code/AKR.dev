@@ -19,7 +19,7 @@ function loadNavigation() {
             <a href="projects.html" class="button">Projects</a>
             <a href="library.html" class="button">Library</a>
             <a href="events.html" class="button">Events</a>
-            <a href="assets/pdfs/cv.pdf" class="button" target="_blank">CV</a>
+            <!-- <a href="assets/pdfs/cv.pdf" class="button" target="_blank">CV</a> tuen off this comment to add cv when needed-->
         </nav>
     `;
 
@@ -33,13 +33,13 @@ function loadNavigation() {
                 <span class="status-text">Scroll down to explore!!</span>
                 <div class="status-icons" style="display: none;">
                     <a class="footer-icon" href="https://www.researchgate.net/profile/Koushik-Allam?ev=hdr_xprf" target="_blank" rel="noreferrer">
-                        <img src="assets/images/footer-researchgate.png" alt="ResearchGate">
+                        <img src="assets/images/footer-researchgate.jpg" alt="ResearchGate">
                     </a>
                     <a class="footer-icon" href="https://github.com/AKR-code" target="_blank" rel="noreferrer">
-                        <img src="assets/images/footer-github.png" alt="GitHub">
+                        <img src="assets/images/footer-github.jpg" alt="GitHub">
                     </a>
                     <a class="footer-icon" href="https://www.linkedin.com/in/koushik-reddy-allam-aa36a6388/" target="_blank" rel="noreferrer">
-                        <img src="assets/images/footer-linkedin.png" alt="LinkedIn">
+                        <img src="assets/images/footer-linkedin.jpeg" alt="LinkedIn">
                     </a>
                 </div>
             </div>
@@ -54,8 +54,7 @@ function loadNavigation() {
             <div class="footer-address">
                 <div class="footer-title">Koushik</div>
                 <div>
-                    25mcce10@uohyd.ac.in,<br>
-                    koushik.r.allam@gmail.com.
+                
                 </div>
             </div>
         </footer>
@@ -125,24 +124,29 @@ function updateVideoSource() {
     let newSource;
     if (isPhoneAspect) {
         newSource = isDark
-            ? 'assets/videos/hero-dark-theme-vid-phone.mp4'
-            : 'assets/videos/hero-light-theme-vid-phone.mp4';
+            ? 'assets/videos/hero-dark-theme-phone.mp4'
+            : 'assets/videos/hero-light-theme-phone.mp4';
     } else {
         newSource = isDark
-            ? 'assets/videos/hero-dark-theme-vid.mp4'
-            : 'assets/videos/hero-light-theme-vid.mp4';
+            ? 'assets/videos/hero-dark-theme.mp4'
+            : 'assets/videos/hero-light-theme.mp4';
     }
 
-    if (videoSource.getAttribute('src') !== newSource) {
+    const currentSource = videoSource.getAttribute('src');
+    if (currentSource !== newSource) {
         videoSource.src = newSource;
-        video.pause();
-        video.currentTime = 0;
         video.load();
-        video.play().catch(() => {
-            // Autoplay might be blocked, that's okay
+        // Use requestAnimationFrame to avoid blocking main thread
+        requestAnimationFrame(() => {
+            video.play().catch(() => {
+                // Autoplay might be blocked, that's okay
+            });
         });
     }
 }
+
+let rafPending = false;
+let lastScrollY = 0;
 
 function updateFooterState() {
     const footerTop = document.getElementById('footer-top');
@@ -152,17 +156,18 @@ function updateFooterState() {
     const statusIcons = document.querySelector('.status-icons');
     if (!footerTop || !footerBottom || !statusText || !statusIcons) return;
 
+    // Batch all DOM reads first to avoid layout thrashing
     const scrollY = window.scrollY;
     const viewportH = window.innerHeight;
     const heroHeight = hero ? hero.offsetHeight : 0;
-
-    // Get footer-bottom's position in the document
     const footerBottomOffsetTop = footerBottom.offsetTop;
     const footerTopHeight = footerTop.offsetHeight;
 
     // The point where footer-top should start moving (when footer-bottom reaches near viewport bottom)
     const transitionPoint = footerBottomOffsetTop - viewportH + footerTopHeight;
+    const isPastHero = scrollY > heroHeight * 0.5;
 
+    // Batch all DOM writes together
     if (scrollY > transitionPoint) {
         // User has scrolled past the transition point, switch to absolute positioning
         footerTop.style.position = 'absolute';
@@ -181,7 +186,6 @@ function updateFooterState() {
     }
 
     // Status text/icons: show hint when in hero, show icons when past hero
-    const isPastHero = scrollY > heroHeight * 0.5;
     if (isPastHero) {
         statusText.style.display = 'none';
         statusIcons.style.display = 'flex';
@@ -208,8 +212,16 @@ window.addEventListener('resize', () => {
     resizeTimeout = setTimeout(updateVideoSource, 250);
 });
 
-// Footer visibility / expansion on scroll
-window.addEventListener('scroll', updateFooterState);
+// Footer visibility / expansion on scroll with requestAnimationFrame throttling
+window.addEventListener('scroll', () => {
+    if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(() => {
+            updateFooterState();
+            rafPending = false;
+        });
+    }
+}, { passive: true });
 
 document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;

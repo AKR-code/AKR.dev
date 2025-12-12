@@ -47,13 +47,15 @@ body.theme-dark {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) translateZ(0);
     min-width: 100%;
     min-height: 100%;
     width: auto;
     height: auto;
     object-fit: cover;
     z-index: -1;
+    will-change: auto;
+    backface-visibility: hidden;
 }
 
 .hero-img {
@@ -68,15 +70,15 @@ body.theme-dark {
 
 /* Page-specific hero imagery; swaps via theme toggle */
 .hero-img.hero-projects {
-    background-image: url('../images/hero-projects-light-theme.png');
+    background-image: url('../images/hero-projects-light-theme.jpg');
 }
 
 .hero-img.hero-library {
-    background-image: url('../images/hero-library-light-theme.png');
+    background-image: url('../images/hero-library-light-theme.jpg');
 }
 
 .hero-img.hero-events {
-    background-image: url('../images/hero-events-light-theme.png');
+    background-image: url('../images/hero-events-light-theme.jpg');
 }
 
 /* Hero content overlay: where you'll add cool text */
@@ -119,15 +121,15 @@ body.theme-dark {
 }
 
 .theme-dark .hero-img.hero-projects {
-    background-image: url('../images/hero-projects-dark-theme.png');
+    background-image: url('../images/hero-projects-dark-theme.jpg');
 }
 
 .theme-dark .hero-img.hero-library {
-    background-image: url('../images/hero-library-ldark-theme.png');
+    background-image: url('../images/hero-library-dark-theme.jpg');
 }
 
 .theme-dark .hero-img.hero-events {
-    background-image: url('../images/hero-events-ldark-theme.png');
+    background-image: url('../images/hero-events-dark-theme.jpg');
 }
 
 /* Mobile/Phone aspect ratio: center content at top */
@@ -176,10 +178,11 @@ body.theme-dark main {
     right: 1vw;
     z-index: 1000;
 
-    /* Glassmorphism: translucent blur effect */
+    /* Glassmorphism: translucent blur effect - optimized for performance */
     background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    will-change: auto;
 
     /* Rounded borders and floating shadow */
     border-radius: var(--footer-radius);
@@ -206,8 +209,9 @@ body.theme-dark main {
     z-index: 999;
     margin: 0 1vw 0 1vw;
     background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    will-change: auto;
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: var(--footer-radius) var(--footer-radius) 0 0;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
@@ -220,7 +224,7 @@ body.theme-dark main {
     gap: clamp(4px, 1vw, 12px);
     padding: 0 clamp(4px, 2vw, 14px);
     font-size: clamp(10px, 1.2vh + 0.8vw, 18px);
-    transition: position 0.1s ease, top 0.1s ease;
+    transition: none;
     box-sizing: border-box;
     width: calc(100% - 2vw);
 }
@@ -234,8 +238,9 @@ body.theme-dark main {
     width: calc(100% - 2vw);
     margin: 0 0 1vw 0;
     background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    will-change: auto;
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 0 0 var(--footer-radius) var(--footer-radius);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
@@ -309,7 +314,8 @@ body.theme-dark main {
     justify-content: center;
     background: rgba(255, 255, 255, 0.85);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
+    will-change: transform;
 }
 
 .footer-icon img {
@@ -319,7 +325,7 @@ body.theme-dark main {
 }
 
 .footer-icon:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) translateZ(0);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -416,8 +422,9 @@ body.theme-dark main {
     overflow: hidden;
     text-overflow: ellipsis;
 
-    /* Smooth transitions for hover/active states */
-    transition: all 0.25s ease;
+    /* Smooth transitions for hover/active states - GPU optimized */
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    will-change: transform;
     cursor: pointer;
 }
 
@@ -426,6 +433,7 @@ body.theme-dark main {
     border: 1px solid rgb(255, 255, 255);
     background: rgba(0, 255, 255, 0.25);
     box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+    transform: translateZ(0);
 }
 
 /* Darker on click/active */
@@ -433,7 +441,7 @@ body.theme-dark main {
     background: rgba(0, 180, 180, 0.4);
     border: 1px solid rgba(0, 200, 200, 0.9);
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
-    transform: scale(0.97);
+    transform: scale(0.97) translateZ(0);
 }
 
 .theme-dark #ribbon,
@@ -488,6 +496,7 @@ body.theme-dark main {
 .fade {
     opacity: 0;
     transition: opacity 0.5s ease;
+    will-change: opacity;
 }
 
 .fade.show {
