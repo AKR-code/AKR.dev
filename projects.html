@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKR.dev</title>
 
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('akr-theme');
+                var isDark = (saved === 'dark') || (saved !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                document.documentElement.style.backgroundColor = isDark ? '#0f1115' : 'rgb(255, 255, 255)';
+            } catch (e) { }
+        })();
+    </script>
+
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/projects.css">
 </head>
