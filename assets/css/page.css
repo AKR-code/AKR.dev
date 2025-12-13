@@ -1,0 +1,128 @@
+/* Page Content Styles */
+
+/* Main content section */
+main {
+    padding: clamp(2rem, 5vw, 4rem);
+    padding-bottom: calc(var(--footer-collapsed-height) + clamp(2rem, 5vw, 4rem));
+    background-color: var(--bg-light);
+    font-size: clamp(14px, 2.5vw, 18px);
+    line-height: 1.6;
+    max-width: 100%;
+}
+
+body.theme-dark main {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+/* Page sections with separator lines */
+.page-section {
+    max-width: 1080px;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.page-section:last-child {
+    border-bottom: none;
+}
+
+body.theme-dark .page-section {
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.page-heading {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 600;
+}
+
+.page-copy {
+    margin: 0 0 1rem;
+    line-height: 1.6;
+    font-size: clamp(13.5px, 3vw, 17px);
+}
+
+/* Mobile optimization for ~60-70 characters per line */
+@media (max-width: 768px) {
+    main {
+        font-size: clamp(13.5px, 3.5vw, 15px);
+        padding: clamp(1.25rem, 4vw, 1.75rem);
+    }
+}
+
+/* Page-specific max-width for index page */
+body.page-index .page-section {
+    max-width: 960px;
+}
+
+/* Code block styling for index page */
+.code-block {
+    background: rgba(0, 0, 0, 0.05);
+    border-left: 4px solid rgba(0, 150, 200, 0.7);
+    border-radius: var(--footer-radius);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: clamp(0.5rem, 1vw, 1rem);
+    line-height: 1.6;
+}
+
+body.theme-dark .code-block {
+    background: rgba(255, 255, 255, 0.08);
+    border-left-color: rgba(0, 200, 255, 0.6);
+}
+
+.code-block code {
+    display: block;
+    white-space: pre;
+    color: #333;
+}
+
+body.theme-dark .code-block code {
+    color: #e8e8e8;
+}
+
+/* Syntax highlighting */
+.kw {
+    color: #0066cc;
+    font-weight: 600;
+}
+
+.fn {
+    color: #d63384;
+}
+
+.str {
+    color: #006600;
+}
+
+.cmt {
+    color: #999;
+    font-style: italic;
+}
+
+.prep {
+    color: #9933cc;
+}
+
+body.theme-dark .kw {
+    color: #66b3ff;
+}
+
+body.theme-dark .fn {
+    color: #ff66b2;
+}
+
+body.theme-dark .str {
+    color: #66ff66;
+}
+
+body.theme-dark .cmt {
+    color: #999;
+}
+
+body.theme-dark .prep {
+    color: #cc99ff;
+}

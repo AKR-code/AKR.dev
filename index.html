@@ -20,7 +20,11 @@
     </script>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/nav-footer.css">
+    <link rel="stylesheet" href="assets/css/page.css">
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
 </head>
 
 <body class="fade page-index">
@@ -43,21 +47,84 @@
     <!-- Main Content: User will see this when they scroll down -->
     <main>
         <section class="page-section">
-            <h2 class="page-heading">Welcome</h2>
-            <p class="page-copy">Add your homepage content here.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident voluptatem fugiat saepe, nam
-                dignissimos rerum quo amet illo voluptate, asperiores modi culpa, atque quam. Fuga cupiditate neque
-                molestiae hic quaerat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nihil molestias
-                aspernatur eveniet repellendus soluta aut dignissimos. Laboriosam est, perferendis incidunt voluptas cum
-                quae nam impedit rem soluta eum quibusdam! Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Dolor impedit, iure voluptas, architecto sequi natus fuga quibusdam omnis nulla consequatur a adipisci
-                voluptate corrupti pariatur porro eum possimus quo tempora.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi corrupti quia illum placeat porro. A eius
-                quam aliquam sequi odio consequatur quaerat quae consequuntur. Commodi doloribus culpa quo assumenda
-                quis! Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda animi nobis nemo tenetur
-                praesentium nam a voluptas distinctio. Voluptates recusandae sapiente temporibus sed beatae iusto unde
-                necessitatibus enim fugit! Iusto.</p>
+            <div class="code-block">
+                <code><span class="prep">#include</span>&lt;stdio.h&gt;
+<span class="kw">int</span> <span class="fn">main</span> () {
+    <span class="fn">printf</span>(<span class="str">"Hello World!!"</span>);
+    <span class="kw">return</span> <span class="str">0</span>;
+} <span class="cmt">// I am a computer guy</span></code>
+            </div>
+            <p class="page-copy">This is not a conventional portfolio; it is a continuously evolving Knowledge Base
+                dedicated to the rigorous exploration
+                of Computer Science, Mathematics, and Theoretical Physics. Here, I synthesize diverse concepts,
+                challenge foundational
+                assumptions, and document the deep why behind the systems we build and the theories we rely on.</p>
+        </section>
 
+        <section class="page-section">
+            <h2 class="page-heading">About This Platform</h2>
+            <p class="page-copy">AKR.dev serves as a comprehensive repository where theoretical knowledge meets
+                practical implementation. Every concept documented here is explored from first principles, ensuring a
+                deep understanding that goes beyond surface-level comprehension.</p>
+            <p>Whether you're diving into algorithms, exploring mathematical proofs, or understanding physical systems,
+                you'll find detailed explanations that connect the dots between different domains of knowledge.</p>
+        </section>
+
+        <!-- Carousel Section -->
+        <section id="carousel-section">
+            <div id="carousel-container">
+                <div id="carousel-glass-frame"></div>
+                <div class="carousel-glass-top"></div>
+                <div class="carousel-glass-bottom"></div>
+                <div id="carousel-focus-window"></div>
+                <div id="carousel-track">
+                    <div class="carousel-slide" data-index="0">
+                        <img src="assets/images/highlights-events/highlight-index-events.jpg" alt="Events Highlight">
+                        <div class="carousel-caption">
+                            <h3>Events & Workshops</h3>
+                            <p>Engaging technical sessions and knowledge sharing</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="1">
+                        <img src="assets/images/highlights-projects/highlight-index-project.jpg"
+                            alt="Projects Highlight">
+                        <div class="carousel-caption">
+                            <h3>Projects & Research</h3>
+                            <p>Innovative solutions and experimental implementations</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="2">
+                        <img src="assets/images/highlights-libraries/highlight-index-library.jpg"
+                            alt="Library Highlight">
+                        <div class="carousel-caption">
+                            <h3>Knowledge Library</h3>
+                            <p>Comprehensive documentation and learning resources</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="carousel-prev" class="carousel-nav-btn" aria-label="Previous slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button id="carousel-next" class="carousel-nav-btn" aria-label="Next slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+                <div id="carousel-pagination"></div>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <h2 class="page-heading">Core Focus Areas</h2>
+            <p class="page-copy">The knowledge base spans three primary domains: Computer Science fundamentals including
+                data structures, algorithms, and system design; Mathematical foundations covering calculus, linear
+                algebra, and discrete mathematics; and Theoretical Physics exploring quantum mechanics and computational
+                physics.</p>
+            <p>Each topic is approached with rigor and clarity, making complex concepts accessible while maintaining
+                technical accuracy. The goal is to build a lasting resource that grows with every new insight and
+                discovery.</p>
         </section>
     </main>
 

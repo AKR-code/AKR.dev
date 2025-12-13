@@ -1,0 +1,125 @@
+/* Hero Section Styles */
+
+/* Hero Section: Full viewport intro with video background */
+#hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+/* Video background: covers full viewport without stretching or gaps */
+#hero-vid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(0);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+    will-change: auto;
+    backface-visibility: hidden;
+}
+
+.hero-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+/* Page-specific hero imagery; swaps via theme toggle */
+.hero-img.hero-projects {
+    background-image: url('../images/hero-projects-light-theme.jpg');
+}
+
+.hero-img.hero-library {
+    background-image: url('../images/hero-library-light-theme.jpg');
+}
+
+.hero-img.hero-events {
+    background-image: url('../images/hero-events-light-theme.jpg');
+}
+
+/* Hero content overlay: where you'll add cool text */
+#hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    color: black;
+    padding: 2rem;
+    padding-left: clamp(1rem, 5vw, 4rem);
+}
+
+#main-title {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: clamp(3rem, 12vw, 8rem);
+    margin: 0;
+    font-weight: 600;
+    line-height: 1;
+    text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.306);
+}
+
+#tagline {
+    font-family: 'Hurricane', cursive;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin: 0.5rem 0 0 0;
+    font-weight: normal;
+    text-shadow: 1px 4px 10px rgba(0, 0, 0, 0.345);
+}
+
+.theme-dark #hero-content {
+    color: white;
+}
+
+.theme-dark #main-title {
+    text-shadow: 2px 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.theme-dark #tagline {
+    text-shadow: 1px 4px 10px rgba(255, 255, 255, 0.25);
+}
+
+.theme-dark .hero-img.hero-projects {
+    background-image: url('../images/hero-projects-dark-theme.jpg');
+}
+
+.theme-dark .hero-img.hero-library {
+    background-image: url('../images/hero-library-dark-theme.jpg');
+}
+
+.theme-dark .hero-img.hero-events {
+    background-image: url('../images/hero-events-dark-theme.jpg');
+}
+
+/* Mobile/Phone aspect ratio: center content at top */
+@media (max-aspect-ratio: 1/1) {
+    #hero {
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 0;
+    }
+
+    #hero-content {
+        text-align: center;
+        padding-left: clamp(1rem, 3vw, 2rem);
+        padding-right: clamp(1rem, 3vw, 2rem);
+        padding-top: clamp(2.5rem, 12vh, 5rem);
+    }
+
+    /* Match mobile alignment for image-backed heroes */
+    .hero-img {
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 0;
+    }
+}

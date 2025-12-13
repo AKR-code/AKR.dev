@@ -1,0 +1,408 @@
+/* Carousel Styles with Glassmorphic Focus Frame */
+
+#carousel-section {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding: clamp(3rem, 6vw, 6rem) 0;
+    overflow: hidden;
+}
+
+#carousel-container {
+    position: relative;
+    width: 100%;
+    height: clamp(400px, 60vh, 700px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Carousel Track - holds all slides */
+#carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Individual Slides */
+.carousel-slide {
+    position: absolute;
+    width: clamp(280px, 70vw, 800px);
+    height: clamp(350px, 55vh, 600px);
+    border-radius: var(--footer-radius);
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateX(0) scale(0.85);
+    pointer-events: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Slide Caption */
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: clamp(1rem, 3vw, 2rem);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.6) 70%, transparent);
+    color: white;
+    transform: translateY(0);
+    transition: all 0.4s ease;
+}
+
+.carousel-slide:hover .carousel-caption {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.75) 70%, transparent);
+}
+
+.carousel-caption h3 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 600;
+}
+
+.carousel-caption p {
+    margin: 0;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    opacity: 0.9;
+}
+
+/* Active slide - center position */
+.carousel-slide.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 3;
+    pointer-events: auto;
+}
+
+/* Previous slide - left position */
+.carousel-slide.prev {
+    opacity: 0.6;
+    transform: translateX(calc(-100% - clamp(1rem, 3vw, 3rem))) scale(0.85);
+    z-index: 2;
+    pointer-events: auto;
+}
+
+/* Next slide - right position */
+.carousel-slide.next {
+    opacity: 0.6;
+    transform: translateX(calc(100% + clamp(1rem, 3vw, 3rem))) scale(0.85);
+    z-index: 2;
+    pointer-events: auto;
+}
+
+/* Glassmorphic Focus Frame - Four Panel System */
+#carousel-glass-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Left Glass Panel */
+#carousel-glass-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    margin-right: clamp(150px, 37.5vw, 425px);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--footer-radius) 0 0 var(--footer-radius);
+}
+
+/* Right Glass Panel */
+#carousel-glass-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 50%;
+    margin-left: clamp(150px, 37.5vw, 425px);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 0 var(--footer-radius) var(--footer-radius) 0;
+}
+
+body.theme-dark #carousel-glass-frame::before,
+body.theme-dark #carousel-glass-frame::after {
+    background: rgba(15, 17, 21, 0.4);
+}
+
+/* Top Glass Bar */
+.carousel-glass-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(300px, 75vw, 850px);
+    height: clamp(15px, 3vh, 30px);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--footer-radius) var(--footer-radius) 0 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+body.theme-dark .carousel-glass-top {
+    background: rgba(15, 17, 21, 0.4);
+}
+
+/* Bottom Glass Bar */
+.carousel-glass-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(300px, 75vw, 850px);
+    height: clamp(15px, 3vh, 30px);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 0 0 var(--footer-radius) var(--footer-radius);
+    pointer-events: none;
+    z-index: 10;
+}
+
+body.theme-dark .carousel-glass-bottom {
+    background: rgba(15, 17, 21, 0.4);
+}
+
+/* Focus Window - subtle frame around the clear center */
+#carousel-focus-window {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(300px, 75vw, 850px);
+    height: clamp(370px, 60vh, 650px);
+    border-radius: var(--footer-radius);
+    pointer-events: none;
+    z-index: 11;
+    box-shadow:
+        inset 0 0 60px rgba(0, 0, 0, 0.2),
+        inset 0 8px 32px rgba(0, 0, 0, 0.15),
+        inset 0 -8px 32px rgba(0, 0, 0, 0.15),
+        inset 8px 0 24px rgba(0, 0, 0, 0.12),
+        inset -8px 0 24px rgba(0, 0, 0, 0.12);
+}
+
+body.theme-dark #carousel-focus-window {
+    box-shadow:
+        inset 0 0 60px rgba(0, 0, 0, 0.4),
+        inset 0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 -8px 32px rgba(0, 0, 0, 0.3),
+        inset 8px 0 24px rgba(0, 0, 0, 0.25),
+        inset -8px 0 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Navigation Buttons */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(40px, 6vw, 60px);
+    height: clamp(40px, 6vw, 60px);
+    border: 2px solid rgba(0, 0, 0, 0.189);
+    background: rgba(0, 255, 255, 0.29);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 12;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+body.theme-dark .carousel-nav-btn {
+    background: rgba(0, 255, 255, 0.25);
+    border-color: rgba(0, 255, 255, 0.3);
+    color: #f5f5f5;
+}
+
+.carousel-nav-btn:hover {
+    background: rgba(0, 255, 255, 0.35);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 16px rgba(0, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+body.theme-dark .carousel-nav-btn:hover {
+    background: rgba(0, 255, 255, 0.35);
+    box-shadow: 0 0 16px rgba(0, 255, 255, 0.3);
+}
+
+.carousel-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+    background: rgba(0, 180, 180, 0.4);
+    border-color: rgba(0, 200, 200, 0.5);
+}
+
+.carousel-nav-btn svg {
+    width: 60%;
+    height: 60%;
+}
+
+#carousel-prev {
+    left: clamp(1rem, 3vw, 4rem);
+}
+
+#carousel-next {
+    right: clamp(1rem, 3vw, 4rem);
+}
+
+/* Pagination Dots */
+#carousel-pagination {
+    position: absolute;
+    bottom: clamp(1rem, 3vh, 2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: clamp(8px, 1vw, 12px);
+    z-index: 12;
+}
+
+.carousel-dot {
+    width: clamp(8px, 1.2vw, 12px);
+    height: clamp(8px, 1.2vw, 12px);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.theme-dark .carousel-dot {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+body.theme-dark .carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-dot.active {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.theme-dark .carousel-dot.active {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #carousel-section {
+        padding: clamp(2rem, 4vw, 3rem) 0;
+    }
+
+    #carousel-container {
+        height: clamp(300px, 50vh, 500px);
+    }
+
+    .carousel-slide {
+        width: clamp(250px, 85vw, 600px);
+        height: clamp(280px, 45vh, 450px);
+    }
+
+    .carousel-slide.prev,
+    .carousel-slide.next {
+        transform: translateX(calc(var(--slide-offset, 0) * 120%)) scale(0.75);
+        opacity: 0.4;
+    }
+
+    #carousel-focus-window {
+        width: clamp(270px, 90vw, 650px);
+        height: clamp(300px, 50vh, 500px);
+    }
+
+    #carousel-glass-frame::before {
+        margin-right: clamp(135px, 45vw, 325px);
+    }
+
+    #carousel-glass-frame::after {
+        margin-left: clamp(135px, 45vw, 325px);
+    }
+
+    .carousel-glass-top,
+    .carousel-glass-bottom {
+        width: clamp(270px, 90vw, 650px);
+    }
+
+    .carousel-nav-btn {
+        width: clamp(36px, 8vw, 48px);
+        height: clamp(36px, 8vw, 48px);
+    }
+
+    #carousel-prev {
+        left: clamp(0.5rem, 2vw, 1.5rem);
+    }
+
+    #carousel-next {
+        right: clamp(0.5rem, 2vw, 1.5rem);
+    }
+
+    .carousel-caption h3 {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+    }
+
+    .carousel-caption p {
+        font-size: clamp(0.8rem, 3vw, 1rem);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .carousel-slide.prev,
+    .carousel-slide.next {
+        opacity: 0.2;
+        transform: translateX(calc(var(--slide-offset, 0) * 100%)) scale(0.65);
+    }
+
+    #carousel-glass-frame::before,
+    #carousel-glass-frame::after,
+    .carousel-glass-top,
+    .carousel-glass-bottom {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+
+    #carousel-glass-frame::before {
+        margin-right: clamp(125px, 42.5vw, 300px);
+    }
+
+    #carousel-glass-frame::after {
+        margin-left: clamp(125px, 42.5vw, 300px);
+    }
+}

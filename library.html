@@ -17,7 +17,11 @@
     </script>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/nav-footer.css">
+    <link rel="stylesheet" href="assets/css/page.css">
     <link rel="stylesheet" href="assets/css/library.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
 </head>
 
 <body class="fade page-library">
@@ -38,8 +42,67 @@
     <!-- Main Content: User will see this when they scroll down -->
     <main>
         <section class="page-section">
-            <h2 class="page-heading">Library</h2>
-            <p class="page-copy">Add learning resources here.</p>
+            <h2 class="page-heading">Learning Resources</h2>
+            <p class="page-copy">Discover an intuitive way of learning Multivariable Calculus and other advanced topics.
+                Our carefully curated resources break down complex subjects into digestible lessons that build upon each
+                other systematically.</p>
+            <p>From interactive visualizations to comprehensive written guides, each resource is designed to facilitate
+                deep understanding. Topics range from foundational mathematics to advanced computational theory, all
+                presented with clarity and precision.</p>
+        </section>
+
+        <!-- Carousel Section -->
+        <section id="carousel-section">
+            <div id="carousel-container">
+                <div id="carousel-glass-frame"></div>
+                <div class="carousel-glass-top"></div>
+                <div class="carousel-glass-bottom"></div>
+                <div id="carousel-focus-window"></div>
+                <div id="carousel-track">
+                    <div class="carousel-slide" data-index="0">
+                        <img src="assets/images/highlights-libraries/highlight-library-tr.jpg" alt="Library Highlight">
+                        <div class="carousel-caption">
+                            <h3>Multivariable Calculus</h3>
+                            <p>Intuitive visualizations and comprehensive guides</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="1">
+                        <img src="assets/images/highlights-libraries/highlight-libraryt-bl.jpg" alt="Library Highlight">
+                        <div class="carousel-caption">
+                            <h3>Study Materials</h3>
+                            <p>In-depth tutorials and practice problems</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="2">
+                        <img src="assets/images/highlights-libraries/highlight-libraryt-br.jpg" alt="Library Highlight">
+                        <div class="carousel-caption">
+                            <h3>Reference Documentation</h3>
+                            <p>Complete guides for theoretical foundations</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="carousel-prev" class="carousel-nav-btn" aria-label="Previous slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button id="carousel-next" class="carousel-nav-btn" aria-label="Next slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+                <div id="carousel-pagination"></div>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <h2 class="page-heading">Study Guides & Tutorials</h2>
+            <p class="page-copy">Access detailed study guides covering essential topics in computer science and
+                mathematics. Each guide includes worked examples, practice problems, and references to further reading
+                materials for those who want to dive deeper.</p>
+            <p>Whether you're preparing for exams, brushing up on forgotten concepts, or exploring entirely new
+                subjects, these resources provide structured pathways for effective learning. Regular updates ensure the
+                content remains current and relevant.</p>
         </section>
     </main>
 

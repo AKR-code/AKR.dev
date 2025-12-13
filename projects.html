@@ -17,7 +17,11 @@
     </script>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/nav-footer.css">
+    <link rel="stylesheet" href="assets/css/page.css">
     <link rel="stylesheet" href="assets/css/projects.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
 </head>
 
 <body class="fade page-projects">
@@ -38,8 +42,67 @@
     <!-- Main Content: User will see this when they scroll down -->
     <main>
         <section class="page-section">
-            <h2 class="page-heading">Projects</h2>
-            <p class="page-copy">Add project highlights here.</p>
+            <h2 class="page-heading">Featured Projects</h2>
+            <p class="page-copy">Explore our latest project LAMDA and other innovative implementations that push the
+                boundaries of what's possible. Each project represents months of research, development, and rigorous
+                testing to ensure quality and reliability.</p>
+            <p>From experimental prototypes to production-ready systems, these projects demonstrate practical
+                applications of theoretical concepts. Detailed documentation, source code, and implementation notes are
+                available for each featured project.</p>
+        </section>
+
+        <!-- Carousel Section -->
+        <section id="carousel-section">
+            <div id="carousel-container">
+                <div id="carousel-glass-frame"></div>
+                <div class="carousel-glass-top"></div>
+                <div class="carousel-glass-bottom"></div>
+                <div id="carousel-focus-window"></div>
+                <div id="carousel-track">
+                    <div class="carousel-slide" data-index="0">
+                        <img src="assets/images/highlights-projects/highlight-project-tr.jpg" alt="Project Highlight">
+                        <div class="carousel-caption">
+                            <h3>LAMDA Project</h3>
+                            <p>Advanced machine learning and data analysis platform</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="1">
+                        <img src="assets/images/highlights-projects/highlight-project-bl.jpg" alt="Project Highlight">
+                        <div class="carousel-caption">
+                            <h3>System Architecture</h3>
+                            <p>Scalable distributed computing solutions</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="2">
+                        <img src="assets/images/highlights-projects/highlight-project-br.jpg" alt="Project Highlight">
+                        <div class="carousel-caption">
+                            <h3>Research Implementations</h3>
+                            <p>Cutting-edge algorithms and data structures</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="carousel-prev" class="carousel-nav-btn" aria-label="Previous slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button id="carousel-next" class="carousel-nav-btn" aria-label="Next slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+                <div id="carousel-pagination"></div>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <h2 class="page-heading">Research & Development</h2>
+            <p class="page-copy">Our R&D initiatives focus on solving real-world problems through computational
+                approaches. Current work includes distributed systems optimization, algorithm efficiency improvements,
+                and novel data structure designs.</p>
+            <p>Collaboration is always welcome. If you're interested in contributing to any ongoing project or have
+                ideas for new initiatives, feel free to reach out through the contact information provided in the
+                footer.</p>
         </section>
     </main>
 

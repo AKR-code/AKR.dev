@@ -17,7 +17,11 @@
     </script>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/nav-footer.css">
+    <link rel="stylesheet" href="assets/css/page.css">
     <link rel="stylesheet" href="assets/css/events.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
 </head>
 
 <body class="fade page-events">
@@ -38,14 +42,67 @@
     <!-- Main Content: User will see this when they scroll down -->
     <main>
         <section class="page-section">
-            <h2 class="page-heading">Events</h2>
-            <p class="page-copy">Add upcoming events here.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia ea numquam dolore optio adipisci,
-                temporibus similique pariatur hic obcaecati. Atque consequuntur fuga asperiores mollitia nisi sunt eum
-                error unde iure?</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae natus consectetur magni, deserunt
-                blanditiis nobis assumenda? Esse ex sit voluptatum. Laboriosam quia earum eius similique ipsa sint
-                tenetur harum ducimus?</p>
+            <h2 class="page-heading">Upcoming Events</h2>
+            <p class="page-copy">Join us for engaging lectures, workshops, and seminars featuring distinguished speakers
+                from academia and industry. These events provide opportunities to explore cutting-edge research and
+                connect with fellow enthusiasts.</p>
+            <p>Check out the distinguished lecture by Easo P George on advanced materials science and its applications
+                in modern technology. Registration details and schedules will be posted here as events are confirmed.
+            </p>
+        </section>
+
+        <!-- Carousel Section -->
+        <section id="carousel-section">
+            <div id="carousel-container">
+                <div id="carousel-glass-frame"></div>
+                <div class="carousel-glass-top"></div>
+                <div class="carousel-glass-bottom"></div>
+                <div id="carousel-focus-window"></div>
+                <div id="carousel-track">
+                    <div class="carousel-slide" data-index="0">
+                        <img src="assets/images/highlights-events/highlight-events-tr.jpg" alt="Event Highlight">
+                        <div class="carousel-caption">
+                            <h3>Distinguished Lectures</h3>
+                            <p>Expert speakers from academia and industry</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="1">
+                        <img src="assets/images/highlights-events/highlight-events-bl.jpg" alt="Event Highlight">
+                        <div class="carousel-caption">
+                            <h3>Technical Workshops</h3>
+                            <p>Hands-on learning and skill development</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" data-index="2">
+                        <img src="assets/images/highlights-events/highlight-events-br.jpg" alt="Event Highlight">
+                        <div class="carousel-caption">
+                            <h3>Research Seminars</h3>
+                            <p>Cutting-edge discoveries and innovations</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="carousel-prev" class="carousel-nav-btn" aria-label="Previous slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button id="carousel-next" class="carousel-nav-btn" aria-label="Next slide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+                <div id="carousel-pagination"></div>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <h2 class="page-heading">Past Highlights</h2>
+            <p class="page-copy">Our previous events have covered diverse topics ranging from machine learning
+                breakthroughs to quantum computing fundamentals. Each session is carefully curated to provide maximum
+                value to participants at all levels of expertise.</p>
+            <p>Recordings and presentation materials from past events are available in the library section. These
+                resources serve as valuable references for continued learning and exploration beyond the live sessions.
+            </p>
         </section>
     </main>
 

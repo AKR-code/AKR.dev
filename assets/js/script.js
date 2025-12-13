@@ -19,6 +19,9 @@ function applyStoredThemeEarly() {
     } else {
         isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
+    const bgColor = isDark ? '#0f1115' : 'rgb(255, 255, 255)';
+    document.documentElement.style.backgroundColor = bgColor;
+    document.documentElement.classList.toggle('theme-dark', isDark);
     document.body.classList.toggle('theme-dark', isDark);
 }
 
@@ -99,11 +102,14 @@ function injectFallbackMarkup() {
 }
 
 function currentTheme() {
-    return document.body.classList.contains('theme-dark') ? 'dark' : 'light';
+    return document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light';
 }
 
 function applyTheme(theme) {
     const isDark = theme === 'dark';
+    const bgColor = isDark ? '#0f1115' : 'rgb(255, 255, 255)';
+    document.documentElement.style.backgroundColor = bgColor;
+    document.documentElement.classList.toggle('theme-dark', isDark);
     document.body.classList.toggle('theme-dark', isDark);
     localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
     updateVideoSource();
@@ -166,7 +172,8 @@ function updateFooterState() {
     if (!els.footerTop || !els.footerBottom || !els.statusText || !els.statusIcons) return;
 
     const scrollY = window.scrollY;
-    const transitionPoint = metrics.footerBottomOffsetTop - metrics.viewportH + metrics.footerTopHeight;
+    // Start docking as soon as footer-bottom enters the viewport (its top reaches viewport bottom)
+    const transitionPoint = metrics.footerBottomOffsetTop - metrics.viewportH;
     const isPastHero = scrollY > metrics.heroHeight * 0.5;
 
     // Positioning writes
@@ -277,4 +284,247 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 170); // must match CSS transition time
         });
     });
+});
+
+// ============================================
+// Carousel Functionality
+// ============================================
+
+class Carousel {
+    constructor() {
+        this.track = document.getElementById('carousel-track');
+        this.slides = Array.from(document.querySelectorAll('.carousel-slide'));
+        this.prevBtn = document.getElementById('carousel-prev');
+        this.nextBtn = document.getElementById('carousel-next');
+        this.pagination = document.getElementById('carousel-pagination');
+
+        if (!this.track || this.slides.length === 0) return;
+
+        this.currentIndex = 0;
+        this.totalSlides = this.slides.length;
+        this.isTransitioning = false;
+        this.autoPlayInterval = null;
+        this.resumeTimeout = null;
+        this.isUserInteracting = false;
+
+        this.init();
+    }
+
+    init() {
+        // Create pagination dots
+        this.createPagination();
+
+        // Set initial positions
+        this.updateCarousel(false);
+
+        // Add event listeners
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => {
+                this.handleUserInteraction();
+                this.prev();
+            });
+        }
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => {
+                this.handleUserInteraction();
+                this.next();
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                this.handleUserInteraction();
+                this.prev();
+            }
+            if (e.key === 'ArrowRight') {
+                this.handleUserInteraction();
+                this.next();
+            }
+        });
+
+        // Touch/swipe support
+        this.initTouchEvents();
+
+        // Start auto-play
+        this.startAutoPlay(3000);
+    }
+
+    createPagination() {
+        if (!this.pagination) return;
+
+        this.pagination.innerHTML = '';
+        for (let i = 0; i < this.totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (i === this.currentIndex) {
+                dot.classList.add('active');
+            }
+            dot.addEventListener('click', () => this.goToSlide(i, true));
+            this.pagination.appendChild(dot);
+        }
+    }
+
+    updateCarousel(animate = true) {
+        if (!animate) {
+            this.track.style.transition = 'none';
+        } else {
+            this.track.style.transition = '';
+        }
+
+        // Update slide positions
+        this.slides.forEach((slide, index) => {
+            // Remove all position classes
+            slide.classList.remove('active', 'prev', 'next');
+
+            // Calculate relative position
+            const relativeIndex = (index - this.currentIndex + this.totalSlides) % this.totalSlides;
+
+            if (relativeIndex === 0) {
+                slide.classList.add('active');
+            } else if (relativeIndex === this.totalSlides - 1) {
+                slide.classList.add('prev');
+                slide.style.setProperty('--slide-offset', -1);
+            } else if (relativeIndex === 1) {
+                slide.classList.add('next');
+                slide.style.setProperty('--slide-offset', 1);
+            }
+        });
+
+        // Update pagination
+        this.updatePagination();
+
+        // Force reflow if no animation
+        if (!animate) {
+            void this.track.offsetHeight;
+            this.track.style.transition = '';
+        }
+    }
+
+    updatePagination() {
+        if (!this.pagination) return;
+
+        const dots = this.pagination.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, index) => {
+            if (index === this.currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    next() {
+        if (this.isTransitioning) return;
+        this.isTransitioning = true;
+
+        this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+        this.updateCarousel(true);
+
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 600);
+    }
+
+    prev() {
+        if (this.isTransitioning) return;
+        this.isTransitioning = true;
+
+        this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+        this.updateCarousel(true);
+
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 600);
+    }
+
+    goToSlide(index, isUserAction = false) {
+        if (this.isTransitioning || index === this.currentIndex) return;
+        this.isTransitioning = true;
+
+        if (isUserAction) {
+            this.handleUserInteraction();
+        }
+
+        this.currentIndex = index;
+        this.updateCarousel(true);
+
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 600);
+    }
+
+    handleUserInteraction() {
+        // Stop auto-play
+        this.stopAutoPlay();
+
+        // Clear any existing resume timeout
+        if (this.resumeTimeout) {
+            clearTimeout(this.resumeTimeout);
+        }
+
+        // Set flag that user is interacting
+        this.isUserInteracting = true;
+
+        // Resume auto-play after 30 seconds
+        this.resumeTimeout = setTimeout(() => {
+            this.isUserInteracting = false;
+            this.startAutoPlay(3000);
+        }, 30000);
+    }
+
+    initTouchEvents() {
+        let startX = 0;
+        let endX = 0;
+        const threshold = 50; // Minimum swipe distance
+
+        this.track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        this.track.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX;
+        }, { passive: true });
+
+        this.track.addEventListener('touchend', () => {
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > threshold) {
+                this.handleUserInteraction();
+                if (diff > 0) {
+                    // Swiped left - go to next
+                    this.next();
+                } else {
+                    // Swiped right - go to prev
+                    this.prev();
+                }
+            }
+        });
+    }
+
+    startAutoPlay(interval = 3000) {
+        // Clear any existing interval
+        this.stopAutoPlay();
+
+        // Start new auto-play interval
+        this.autoPlayInterval = setInterval(() => {
+            if (!this.isUserInteracting) {
+                this.next();
+            }
+        }, interval);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+}
+
+// Initialize carousel when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('carousel-track')) {
+        new Carousel();
+    }
 });
