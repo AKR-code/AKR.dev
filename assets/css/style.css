@@ -24,8 +24,8 @@
     --text-dark: #f5f5f5;
 }
 
-/* Improve tap targets on narrow devices */
-@media (max-width: 400px) {
+/* Improve tap targets in portrait (width <= height) */
+@media (orientation: portrait) {
     :root {
         /* Increase minimum collapsed height to be more finger-friendly */
         --footer-collapsed-height: 44px;
