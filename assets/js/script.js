@@ -112,7 +112,16 @@ function applyTheme(theme) {
     document.documentElement.classList.toggle('theme-dark', isDark);
     document.body.classList.toggle('theme-dark', isDark);
     localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
+    // Keep the checkbox in sync even when toggled programmatically
+    if (els.themeToggle) {
+        els.themeToggle.checked = isDark;
+    }
     updateVideoSource();
+}
+
+function toggleTheme() {
+    const nextTheme = currentTheme() === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme);
 }
 
 function initThemeToggle() {
@@ -239,6 +248,69 @@ window.addEventListener('scroll', () => {
     });
 }, { passive: true });
 
+// ============================================
+// Keyboard Navigation
+// ============================================
+
+const pageOrder = ['index.html', 'projects.html', 'library.html', 'events.html'];
+
+function getCurrentPageIndex() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    return pageOrder.indexOf(currentPage);
+}
+
+function navigateToPage(pageIndex) {
+    if (pageIndex < 0 || pageIndex >= pageOrder.length) return;
+
+    const targetPage = pageOrder[pageIndex];
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+    if (currentPage === targetPage) return; // Already on this page
+
+    const body = document.body;
+    body.classList.remove("show");
+
+    setTimeout(() => {
+        window.location.href = targetPage;
+    }, 170); // must match CSS transition time
+}
+
+function setupKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+        // Ctrl + D toggles theme without page navigation
+        if (e.ctrlKey && !e.altKey && !e.metaKey && (e.key === 'd' || e.key === 'D')) {
+            e.preventDefault();
+            toggleTheme();
+            return;
+        }
+
+        // Navigation keys
+        if (e.key === 'a' || e.key === 'h' || e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const currentIndex = getCurrentPageIndex();
+            navigateToPage(currentIndex - 1);
+        } else if (e.key === 'd' || e.key === 'l' || e.key === 'ArrowRight') {
+            e.preventDefault();
+            const currentIndex = getCurrentPageIndex();
+            navigateToPage(currentIndex + 1);
+        }
+        // Scrolling keys
+        else if (e.key === 'w' || e.key === 'k' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            window.scrollBy({
+                top: -100,
+                behavior: 'smooth'
+            });
+        } else if (e.key === 's' || e.key === 'j' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            window.scrollBy({
+                top: 100,
+                behavior: 'smooth'
+            });
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;
 
@@ -281,9 +353,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(() => {
                 window.location.href = href;
-            }, 170); // must match CSS transition time
+            }, 220); // must match CSS transition time
         });
     });
+
+    // Setup keyboard navigation
+    setupKeyboardNavigation();
 });
 
 // ============================================

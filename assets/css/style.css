@@ -24,6 +24,14 @@
     --text-dark: #f5f5f5;
 }
 
+/* Improve tap targets on narrow devices */
+@media (max-width: 400px) {
+    :root {
+        /* Increase minimum collapsed height to be more finger-friendly */
+        --footer-collapsed-height: 44px;
+    }
+}
+
 html,
 body {
     background-color: var(--bg-light);
@@ -43,7 +51,7 @@ body.theme-dark {
 /* Page transition effect */
 .fade {
     opacity: 0;
-    transition: opacity 0.17s ease;
+    transition: opacity 0.22s ease;
     will-change: opacity;
 }
 
