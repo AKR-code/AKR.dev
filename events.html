@@ -45,6 +45,8 @@
                 var html = document.documentElement;
                 html.style.backgroundColor = isDark ? '#0f1115' : '#fff';
                 if (isDark) html.classList.add('theme-dark');
+                window.__initialTheme = isDark ? 'dark' : 'light';
+                window.__preHeroImg = isDark ? 'assets/images/pre-hero-events-dark-theme.jpg' : 'assets/images/pre-hero-events-light-theme.jpg';
             } catch (e) { }
         })();
     </script>
@@ -60,6 +62,11 @@
 <body class="fade page-events">
     <!-- Hero Section: Full viewport intro with video background -->
     <section id="hero">
+        <script>
+            if (window.__preHeroImg) {
+                document.write('<style>#hero { background-image: url(' + window.__preHeroImg + '); }</style>');
+            }
+        </script>
         <div class="hero-img hero-events">
             <div id="hero-content">
                 <!-- Add your cool text here -->

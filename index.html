@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A personal knowledge base and portfolio focused on deep technical writing, first-principles reasoning, project analysis, and interdisciplinary learning.">
+    <link rel="icon" type="image/jpeg" href="assets/images/fevicon.jpg">
     <title>AKR.dev</title>
 
     <!-- Resource hints for faster loading -->
@@ -38,9 +41,56 @@
         .fade.show {
             opacity: 1;
         }
+
+        /* Critical hero content styles for instant render */
+        #hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-family: 'Black Ops One', sans-serif;
+        }
+
+        #main-title {
+            font-size: clamp(32px, 8vw, 96px);
+            margin-bottom: 0.5em;
+        }
+
+        #tagline {
+            font-size: clamp(14px, 3vw, 28px);
+            opacity: 0.9;
+        }
+
+        #hero-vid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            z-index: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        #hero-vid.loaded {
+            opacity: 1;
+        }
     </style>
     <script>
-        // Prevent FOUC by applying theme and setting correct video source immediately
+        // Prevent FOUC by applying theme and setting pre-hero background
         (function () {
             try {
                 var saved = localStorage.getItem('akr-theme');
@@ -51,8 +101,14 @@
                 if (isDark) {
                     html.classList.add('theme-dark');
                 }
-                // Set correct video source before page renders
                 window.__initialTheme = isDark ? 'dark' : 'light';
+
+                // Set pre-hero background image for instant visual feedback
+                var isPhone = window.innerWidth < window.innerHeight;
+                var preHeroImg = isDark
+                    ? (isPhone ? 'assets/images/pre-hero-index-dark-phone.jpg' : 'assets/images/pre-hero-index-dark.jpg')
+                    : (isPhone ? 'assets/images/pre-hero-index-light-phone.jpg' : 'assets/images/pre-hero-index-light.jpg');
+                window.__preHeroImg = preHeroImg;
             } catch (e) { }
         })();
     </script>
@@ -62,28 +118,23 @@
     <link rel="stylesheet" href="assets/css/nav-footer.css">
     <link rel="stylesheet" href="assets/css/page.css">
     <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/carousel.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="assets/css/carousel.css" media="print" onload="this.media='all'; this.onload=null;">
 </head>
 
 <body class="fade page-index">
     <!-- Hero Section: Full viewport intro with video background -->
     <section id="hero">
-        <video id="hero-vid" autoplay muted loop playsinline preload="metadata">
-            <source id="video-source" src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
         <script>
-            // Set correct video immediately based on theme
+            // Set pre-hero background immediately for instant render
             (function () {
-                var isDark = window.__initialTheme === 'dark';
-                var isPhone = window.innerWidth < window.innerHeight;
-                var src = isDark
-                    ? (isPhone ? 'assets/videos/hero-dark-theme-phone.mp4' : 'assets/videos/hero-dark-theme.mp4')
-                    : (isPhone ? 'assets/videos/hero-light-theme-phone.mp4' : 'assets/videos/hero-light-theme.mp4');
-                document.getElementById('video-source').src = src;
-                document.getElementById('hero-vid').load();
+                if (window.__preHeroImg) {
+                    document.write('<style>#hero { background-image: url(' + window.__preHeroImg + '); }</style>');
+                }
             })();
         </script>
+        <video id="hero-vid" muted loop playsinline preload="none">
+            <source id="video-source" src="" type="video/mp4">
+        </video>
         <div id="hero-content">
             <!-- Add your cool text here -->
             <div id="main-title">AKR.dev</div>

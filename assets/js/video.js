@@ -26,8 +26,9 @@ function getVideoSource(isDark) {
  * Update video source when theme or viewport changes
  * @param {HTMLVideoElement} videoElement - The video element
  * @param {HTMLSourceElement} sourceElement - The source element within the video
+ * @param {boolean} crossfade - Whether to crossfade from pre-hero image
  */
-function updateVideoSource(videoElement, sourceElement) {
+function updateVideoSource(videoElement, sourceElement, crossfade = false) {
     if (!sourceElement || !videoElement) return;
 
     const isDark = currentTheme() === 'dark';
@@ -38,12 +39,16 @@ function updateVideoSource(videoElement, sourceElement) {
         sourceElement.src = newSource;
         videoElement.load();
 
-        // Use requestAnimationFrame to avoid blocking main thread
-        requestAnimationFrame(() => {
-            videoElement.play().catch(() => {
-                // Autoplay might be blocked, that's okay
+        // Crossfade from pre-hero image to video
+        videoElement.addEventListener('loadeddata', function onLoaded() {
+            videoElement.removeEventListener('loadeddata', onLoaded);
+            requestAnimationFrame(() => {
+                videoElement.play().catch(() => { });
+                if (crossfade) {
+                    videoElement.classList.add('loaded');
+                }
             });
-        });
+        }, { once: true });
     }
 }
 
