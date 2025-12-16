@@ -10,6 +10,15 @@ const footerMetrics = {
     viewportH: 0,
 };
 
+const footerRefs = {
+    footerTop: null,
+    footerBottom: null,
+    statusText: null,
+    statusIcons: null,
+    videoSource: null,
+    video: null,
+};
+
 let rafPending = false;
 
 /**
@@ -51,18 +60,23 @@ function updateFooterState(footerTop, footerBottom, statusText, statusIcons) {
  * @param {HTMLElement} hero - Hero section element
  * @returns {Object} Object containing cached element references
  */
-function computeMetrics(hero) {
-    const footerTop = document.getElementById('footer-top');
-    const footerBottom = document.getElementById('footer-bottom');
-    const videoSource = document.getElementById('video-source');
-    const video = document.getElementById('hero-vid');
+function cacheFooterRefs() {
+    footerRefs.footerTop = document.getElementById('footer-top');
+    footerRefs.footerBottom = document.getElementById('footer-bottom');
+    footerRefs.statusText = document.querySelector('.status-text');
+    footerRefs.statusIcons = document.querySelector('.status-icons');
+    footerRefs.videoSource = document.getElementById('video-source');
+    footerRefs.video = document.getElementById('hero-vid');
+    return footerRefs;
+}
 
+function computeMetrics(hero, refs = cacheFooterRefs()) {
     footerMetrics.viewportH = window.innerHeight;
     footerMetrics.heroHeight = hero?.offsetHeight ?? 0;
-    footerMetrics.footerBottomOffsetTop = footerBottom?.offsetTop ?? 0;
-    footerMetrics.footerTopHeight = footerTop?.offsetHeight ?? 0;
+    footerMetrics.footerBottomOffsetTop = refs.footerBottom?.offsetTop ?? 0;
+    footerMetrics.footerTopHeight = refs.footerTop?.offsetHeight ?? 0;
 
-    return { footerTop, footerBottom, videoSource, video };
+    return refs;
 }
 
 /**
@@ -77,7 +91,7 @@ function handleHeroResize() {
  * Setup footer and hero resize/scroll listeners
  * @param {HTMLElement} hero - Hero section element
  */
-function setupFooterListeners(hero) {
+function setupFooterListeners(hero, refs = computeMetrics(hero)) {
     if (!hero) return;
 
     // Handle resize with debouncing
@@ -86,23 +100,18 @@ function setupFooterListeners(hero) {
         handleHeroResize();
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            const { footerTop, footerBottom, videoSource, video } = computeMetrics(hero);
-            updateFooterState(footerTop, footerBottom,
-                document.querySelector('.status-text'),
-                document.querySelector('.status-icons'));
-            updateVideoSource(video, videoSource);
+            computeMetrics(hero, refs);
+            updateFooterState(refs.footerTop, refs.footerBottom, refs.statusText, refs.statusIcons);
+            updateVideoSource(refs.video, refs.videoSource);
         }, 200);
     }, { passive: true });
 
-    // Handle scroll with RAF throttling
+    // Handle scroll with RAF throttling and cached metrics
     window.addEventListener('scroll', () => {
         if (rafPending) return;
         rafPending = true;
         requestAnimationFrame(() => {
-            const { footerTop, footerBottom } = computeMetrics(hero);
-            updateFooterState(footerTop, footerBottom,
-                document.querySelector('.status-text'),
-                document.querySelector('.status-icons'));
+            updateFooterState(refs.footerTop, refs.footerBottom, refs.statusText, refs.statusIcons);
             rafPending = false;
         });
     }, { passive: true });

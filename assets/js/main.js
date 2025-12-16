@@ -3,41 +3,45 @@
  * Coordinates module initialization on page load
  */
 
-/**
- * Initialize all page features on DOM load
- */
-document.addEventListener('DOMContentLoaded', () => {
+let appInitialized = false;
+
+function initApp() {
+    if (appInitialized) return;
+    appInitialized = true;
+
     const body = document.body;
 
-    // 1. Apply stored theme immediately to prevent FOUC (Flash of Unstyled Content)
+    // Apply stored theme immediately to prevent FOUC (Flash of Unstyled Content)
     applyStoredThemeEarly();
 
-    // 2. Load shared HTML components (nav, footers)
+    // Load shared HTML components (nav, footers)
     loadPartials().then(() => {
-        // 3. Initialize theme toggle after partials are in DOM
+        // Initialize theme toggle after partials are in DOM
         initThemeToggle();
 
-        // 4. Get hero element and setup footer/video listeners
+        // Setup footer/video listeners when hero exists
         const hero = document.getElementById('hero');
         if (hero) {
-            const { footerTop, footerBottom, videoSource, video } = computeMetrics(hero);
-            setupFooterListeners(hero);
-            updateFooterState(footerTop, footerBottom,
-                document.querySelector('.status-text'),
-                document.querySelector('.status-icons'));
-            updateVideoSource(video, videoSource);
+            const refs = computeMetrics(hero);
+            setupFooterListeners(hero, refs);
+            updateFooterState(refs.footerTop, refs.footerBottom, refs.statusText, refs.statusIcons);
+            updateVideoSource(refs.video, refs.videoSource);
         }
     });
 
-    // 5. Fade in page on load
+    // Fade in page on load
     body.classList.add('fade');
     requestAnimationFrame(() => {
         body.classList.add('show');
     });
 
-    // 6. Setup keyboard navigation
+    // Setup keyboard navigation and link transitions
     setupKeyboardNavigation();
-
-    // 7. Setup link click transitions
     setupLinkTransitions();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
