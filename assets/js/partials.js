@@ -35,6 +35,7 @@ const FALLBACK_MARKUP = {
         <div id="footer-status" class="footer-status">
             <span class="status-text">Scroll down to explore!!</span>
             <div class="status-icons" style="display: none;">
+                <span class="status-icons-label">Follow me in </span>
                 <a class="footer-icon" href="https://www.researchgate.net/profile/Koushik-Allam?ev=hdr_xprf" target="_blank" rel="noreferrer">
                     <img src="assets/images/footer-researchgate.jpg" alt="ResearchGate">
                 </a>
@@ -98,10 +99,12 @@ function injectFallbackMarkup() {
  * Falls back to inline markup if fetch fails
  */
 async function loadPartials() {
+    // Immediately inject fallback for instant render, then replace with fetched if available
+    injectFallbackMarkup();
+
     try {
-        // Check if running from filesystem
+        // Skip fetch on file:// protocol
         if (window.location.protocol === 'file:') {
-            injectFallbackMarkup();
             return;
         }
 

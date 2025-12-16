@@ -244,10 +244,22 @@ class Carousel {
 }
 
 /**
- * Initialize carousel when DOM is ready
+ * Lazy-initialize carousel when near viewport for faster mobile startup
  */
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('carousel-track')) {
-        new Carousel();
+    const track = document.getElementById('carousel-track');
+    if (!track) return;
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+            if (entries[0]?.isIntersecting) {
+                new Carousel();
+                obs.disconnect();
+            }
+        }, { rootMargin: '300px' });
+        observer.observe(track);
+    } else {
+        // Fallback for older browsers
+        requestIdleCallback ? requestIdleCallback(() => new Carousel()) : new Carousel();
     }
 });

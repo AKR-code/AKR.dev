@@ -25,7 +25,7 @@ function initApp() {
             const refs = computeMetrics(hero);
             setupFooterListeners(hero, refs);
             updateFooterState(refs.footerTop, refs.footerBottom, refs.statusText, refs.statusIcons);
-            updateVideoSource(refs.video, refs.videoSource);
+            // Skip initial video update - inline script already set correct source
         }
     });
 

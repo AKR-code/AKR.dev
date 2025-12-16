@@ -7,8 +7,20 @@ const THEME_STORAGE_KEY = 'akr-theme';
 
 /**
  * Apply stored theme ASAP to avoid per-page toggling
+ * Skips if inline script already applied it
  */
 function applyStoredThemeEarly() {
+    // Skip if inline script already set theme
+    if (document.documentElement.classList.contains('theme-dark') ||
+        document.documentElement.style.backgroundColor) {
+        // Sync body class if needed
+        const isDark = document.documentElement.classList.contains('theme-dark');
+        if (isDark && !document.body.classList.contains('theme-dark')) {
+            document.body.classList.add('theme-dark');
+        }
+        return;
+    }
+
     const saved = localStorage.getItem(THEME_STORAGE_KEY);
     let isDark;
     if (saved === 'dark' || saved === 'light') {
